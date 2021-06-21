@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:page_transition/page_transition.dart';
 import 'package:snapchat/data/stories_json.dart';
+import 'package:snapchat/pages/More.dart';
 
 class StoriesPage extends StatefulWidget {
   const StoriesPage({Key? key}) : super(key: key);
@@ -103,64 +106,76 @@ class _StoriesPageState extends State<StoriesPage> {
                         spacing: 10,
                         runSpacing: 10,
                         children: List.generate(stories_data.length, (index) {
-                          return Container(
-                            width: (size.width - 30) / 2,
-                            height: 250,
-                            child: Stack(children: [
-                              Container(
-                                width: (size.width - 30) / 2,
-                                height: 250,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            stories_data[index]['img']),
-                                        fit: BoxFit.cover)),
-                              ),
-                              Container(
-                                  width: (size.width - 15) / 2,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => More(
+                                      videoUrl: stories_data[index]['videoUrl'],
+                                    ),
+                                  ));
+                            },
+                            child: Container(
+                              width: (size.width - 30) / 2,
+                              height: 250,
+                              child: Stack(children: [
+                                Container(
+                                  width: (size.width - 30) / 2,
                                   height: 250,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.black.withOpacity(0.25),
-                                        Colors.black.withOpacity(0),
-                                      ],
-                                      end: Alignment.topCenter,
-                                      begin: Alignment.bottomCenter,
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              stories_data[index]['img']),
+                                          fit: BoxFit.cover)),
+                                ),
+                                Container(
+                                    width: (size.width - 15) / 2,
+                                    height: 250,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.25),
+                                          Colors.black.withOpacity(0),
+                                        ],
+                                        end: Alignment.topCenter,
+                                        begin: Alignment.bottomCenter,
+                                      ),
                                     ),
-                                  ),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            stories_data[index]['name'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              stories_data[index]['name'],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, bottom: 10, top: 5),
-                                          child: Text(
-                                            stories_data[index]['date'],
-                                            style: TextStyle(
-                                                color: Colors.white
-                                                    .withOpacity(0.7),
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, bottom: 10, top: 5),
+                                            child: Text(
+                                              stories_data[index]['date'],
+                                              style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.7),
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                        ),
-                                      ]))
-                            ]),
+                                        ]))
+                              ]),
+                            ),
                           );
                         })))
               ],
